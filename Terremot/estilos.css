@@ -57,4 +57,55 @@ h1 {
 #btn-usa { top: 25%; left: 20%; }
 #btn-col { top: 55%; left: 28%; }
 #btn-mex { top: 40%; left: 18%; }
+.calculadora {
+    background-color: white;
+    width: 350px;
+    padding: 30px;
+    border-radius: 25px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    text-align: left;
+}
+
+.calculadora label {
+    font-weight: bold;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    display: block;
+}
+
+select, input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ecf0f1;
+    border-radius: 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.btn-grande {
+    background-color: #3498db; 
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+}
+
+.resultado-caja {
+    background-color: #e8f6f3; 
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px dashed #1abc9c;
+}
+h2 {
+    color: #16a085;
+    margin: 0;
+}
+
 
