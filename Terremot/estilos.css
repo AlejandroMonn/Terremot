@@ -9,3 +9,39 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+
+/* Contenedor Flex para poner lado a lado (La solución encontrada en Stack Overflow) */
+.contenedor-principal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* --- LA CALCULADORA (IZQUIERDA) --- */
+.calculadora {
+    background-color: white;
+    width: 350px;
+    padding: 30px;
+    border: 1px solid #ccc; /* Borde simple para delimitar la caja */
+    text-align: left;
+}
+
+
+/* --- EL MAPA (DERECHA) --- */
+.mapa-contenedor {
+    position: relative;
+    width: 600px;
+    height: 350px;
+    border: 5px solid #2c3e50; /* Borde grueso para que se note */
+    overflow: hidden;
+    background-color: #aed6f1;
+}
+
+.imagen-mapa {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
