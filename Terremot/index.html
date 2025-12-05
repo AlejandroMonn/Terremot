@@ -26,9 +26,46 @@
             <button class="pais-btn" id="btn-mex" onclick="seleccionarPais('MXN', '🇲🇽 México (MXN)')">🇲🇽</button>
             
             </div>
+        <div class="calculadora">
+            <h3>💸 Calculadora Rápida</h3>
+            
+            <label>Origen:</label>
+            <select id="select_pais1" onchange="cambiarDesdeSelect(1)">
+                <option value="">-- Busca un país --</option>
+                <option value="USD">🇺🇸 Estados Unidos (USD)</option>
+                <option value="COP">🇨🇴 Colombia (COP)</option>
+                <option value="MXN">🇲🇽 México (MXN)</option>
+                <option value="EUR">🇪🇸 España (EUR)</option>
+                <option value="GBP">🇬🇧 Reino Unido (GBP)</option>
+                <option value="JPY">🇯🇵 Japón (JPY)</option>
+            </select>
+            <br><br>
+            
+            <label>Destino:</label>
+            <select id="select_pais2" onchange="cambiarDesdeSelect(2)">
+                <option value="">-- Busca un país --</option>
+                <option value="USD">🇺🇸 Estados Unidos (USD)</option>
+                <option value="COP">🇨🇴 Colombia (COP)</option>
+                <option value="MXN">🇲🇽 México (MXN)</option>
+                <option value="EUR">🇪🇸 España (EUR)</option>
+                <option value="GBP">🇬🇧 Reino Unido (GBP)</option>
+                <option value="JPY">🇯🇵 Japón (JPY)</option>
+            </select>
+            <br><br>
+
+            <label>Cantidad a Convertir:</label>
+            <input type="text" id="cantidad" placeholder="$ 0"><br><br>
+
+            <button class="btn-grande" onclick="calcular()">🔄 CONVERTIR</button>
+            
+            <div class="resultado-caja">
+                <h2 id="resultado_final">Total: $ 0.00</h2>
+            </div>
+        </div>
     </div>
     
     <script src="funciones.js"></script> 
 </body>
 </html>
+
 
