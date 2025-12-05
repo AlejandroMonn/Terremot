@@ -10,7 +10,6 @@ h1 {
     letter-spacing: 2px;
 }
 
-/* Contenedor Flex para poner lado a lado (La solución encontrada en Stack Overflow) */
 .contenedor-principal {
     display: flex;
     justify-content: center;
@@ -20,22 +19,20 @@ h1 {
     padding: 20px;
 }
 
-/* --- LA CALCULADORA (IZQUIERDA) --- */
 .calculadora {
     background-color: white;
     width: 350px;
     padding: 30px;
-    border: 1px solid #ccc; /* Borde simple para delimitar la caja */
+    border: 1px solid #ccc; 
     text-align: left;
 }
 
 
-/* --- EL MAPA (DERECHA) --- */
 .mapa-contenedor {
     position: relative;
     width: 600px;
     height: 350px;
-    border: 5px solid #2c3e50; /* Borde grueso para que se note */
+    border: 5px solid #2c3e50;
     overflow: hidden;
     background-color: #aed6f1;
 }
@@ -45,3 +42,19 @@ h1 {
     height: 100%;
     object-fit: cover;
 }
+
+.pais-btn {
+    position: absolute;
+    background-color: white;
+    border: none;
+    border-radius: 50%; 
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#btn-usa { top: 25%; left: 20%; }
+#btn-col { top: 55%; left: 28%; }
+#btn-mex { top: 40%; left: 18%; }
+
