@@ -109,3 +109,19 @@ h2 {
 }
 
 
+.pais-btn {
+    position: absolute;
+    background-color: white;
+    border: none;
+    border-radius: 50%; 
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#btn-usa { top: 25%; left: 20%; }
+#btn-col { top: 55%; left: 28%; }
+#btn-mex { top: 40%; left: 18%; }
+
+
