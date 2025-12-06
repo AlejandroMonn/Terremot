@@ -34,4 +34,15 @@ function cambiarDesdeSelect(numeroSelect) {
     }
 }
 
-// Las funciones calcular, formatear y guardar vendrán después
+function formatearMoneda(input) {
+    var valorLimpio = input.value.replace(/\D/g, "");
+    
+    if (valorLimpio === "") {
+        input.value = "";
+        return;
+    }
+
+    var formateado = new Intl.NumberFormat('en-US').format(valorLimpio);
+
+    input.value = "$ " + formateado;
+}
