@@ -3,8 +3,8 @@ var turno = 1;
 var moneda1 = "";
 var moneda2 = "";
 
-var supabaseUrl = 'TU_URL_AQUI'; 
-var supabaseKey = 'TU_KEY_AQUI'; 
+var supabaseUrl = ''; 
+var supabaseKey = ''; 
 var _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 function seleccionarPais(codigoMoneda, nombrePaisCompleto) {
@@ -82,3 +82,4 @@ async function calcular() {
 async function guardarEnHistorial(texto) {
     console.log("Datos a guardar: " + texto);
 }
+
