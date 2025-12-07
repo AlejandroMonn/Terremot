@@ -1,5 +1,5 @@
 body {
-    background-color: #f0f4f8; 
+    background-color: #f0f4f8;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 }
@@ -13,8 +13,8 @@ h1 {
 .contenedor-principal {
     display: flex;
     justify-content: center;
-    align-items: flex-start; 
-    flex-wrap: wrap;
+    align-items: flex-start;
+    flex-wrap: wrap; 
     gap: 30px;
     padding: 20px;
 }
@@ -23,21 +23,125 @@ h1 {
     background-color: white;
     width: 350px;
     padding: 30px;
-    border: 1px solid #ccc; 
+    border-radius: 25px; 
     text-align: left;
 }
 
+.calculadora label {
+    font-weight: bold;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    display: block;
+}
+
+select, input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ecf0f1;
+    border-radius: 12px; 
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.resultado-caja {
+    background-color: #e8f6f3; 
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px dashed #1abc9c;
+}
+
+h2 {
+    color: #16a085;
+    margin: 0;
+}
 
 .mapa-contenedor {
     position: relative;
     width: 600px;
     height: 350px;
-    border: 5px solid #2c3e50;
+    border-radius: 25px; 
     overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     background-color: #aed6f1;
 }
 
 .imagen-mapa {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pais-btn {
+    position: absolute;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+}
+
+.pais-btn:hover {
+    transform: scale(1.2); 
+    background-color: #f1c40f;
+}
+
+#btn-usa { top: 25%; left: 20%; }
+#btn-col { top: 55%; left: 28%; }
+#btn-mex { top: 40%; left: 18%; }
+#btn-esp { top: 30%; left: 48%; }
+#btn-uk  { top: 22%; left: 45%; }
+#btn-jpn { top: 32%; left: 82%; }
+
+.btn-grande {
+    background-color: #3498db; 
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.btn-grande:hover {
+    background-color: #2980b9;
+}
+
+.link-historial {
+    text-decoration: none;
+    color: #7f8c8d;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 2px;
+}
+
+@media screen and (max-width: 900px) {
+    .contenedor-principal {
+        flex-direction: column-reverse; 
+        align-items: center;
+    }
+    .mapa-contenedor {
+        width: 100%;
+        height: 250px;
+    }
+    .calculadora {
+        width: 100%;
+    }
+}
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -123,5 +227,6 @@ h2 {
 #btn-usa { top: 25%; left: 20%; }
 #btn-col { top: 55%; left: 28%; }
 #btn-mex { top: 40%; left: 18%; }
+
 
 
