@@ -82,4 +82,25 @@ async function calcular() {
 async function guardarEnHistorial(texto) {
     console.log("Datos a guardar: " + texto);
 }
+async function calcular() {
+    var inputCantidad = document.getElementById("cantidad").value;
+
+    if (moneda1 == "" || moneda2 == "") {
+        alert("¡Oye! Te falta seleccionar los países en el mapa o la lista.");
+        return;
+    }
+
+    try {
+        var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
+        var datos = await respuesta.json();
+        
+        var tasa = datos.rates[moneda2];
+        
+        alert("Conectado! La tasa es: " + tasa); 
+
+    } catch (error) {
+        console.log(error);
+        alert("Error: No pude conectar con la API de dinero.");
+    }
+}
 
