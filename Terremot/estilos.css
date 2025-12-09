@@ -227,6 +227,32 @@ h2 {
 #btn-usa { top: 25%; left: 20%; }
 #btn-col { top: 55%; left: 28%; }
 #btn-mex { top: 40%; left: 18%; }
+.historial-contenedor {
+    width: 80%;
+    max-width: 600px;
+    background-color: #d6eaf8; 
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid #3498db;
+}
+
+#lista-historial {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.item-historial {
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #f1c40f; 
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: 'Courier New', Courier, monospace; 
+}
 
 
 
