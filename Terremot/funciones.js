@@ -74,6 +74,8 @@ async function calcular() {
         }).format(total);
 
         document.getElementById("resultado_final").innerText = "Total: " + totalBonito;
+        "💰 Resultado: <br>" + totalBonito + " (" + moneda2 + ")";
+
 
         var textoHistorial = inputCantidad + " " + moneda1 + " son " + totalBonito;
         guardarEnHistorial(textoHistorial);
@@ -87,5 +89,6 @@ async function calcular() {
 async function guardarEnHistorial(texto) {
     console.log("Aun no guardo en base de datos, pero esto llegara: " + texto);
 }
+
 
 
