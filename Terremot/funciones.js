@@ -89,6 +89,36 @@ async function calcular() {
 async function guardarEnHistorial(texto) {
     console.log("Aun no guardo en base de datos, pero esto llegara: " + texto);
 }
+async function cargarHistorial() {
+    var lista = document.getElementById("lista-historial");
+    if (!lista) return; 
+    try {
+        const { data, error } = await _supabase
+            .from('historial_monedas')
+            .select('*')
+            .order('id', { ascending: false })
+            .limit(10);
+
+        if (error) {
+            lista.innerHTML = "<li>Error cargando la lista :(</li>";
+            console.log(error);
+        } else {
+            lista.innerHTML = "";
+
+            data.forEach(function(item) {
+                var fila = document.createElement("li");
+                fila.className = "item-historial";
+                fila.innerText = item.descripcion; 
+                
+                lista.appendChild(fila);
+            });
+        }
+    } catch (err) {
+        console.log(err);
+        lista.innerHTML = "<li>Error de conexión.</li>";
+    }
+}
+
 
 
 
