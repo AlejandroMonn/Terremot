@@ -1,10 +1,9 @@
-
-var turno = 1; 
+var turno = 1;
 var moneda1 = "";
 var moneda2 = "";
 
-var supabaseUrl = ''; 
-var supabaseKey = ''; 
+var supabaseUrl = 'TU_URL_AQUI'; 
+var supabaseKey = 'TU_KEY_AQUI'; 
 var _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 function seleccionarPais(codigoMoneda, nombrePaisCompleto) {
@@ -13,23 +12,23 @@ function seleccionarPais(codigoMoneda, nombrePaisCompleto) {
         document.getElementById("select_pais1").value = codigoMoneda;
         
         alert("Origen seleccionado: " + codigoMoneda + ". Ahora elige destino.");
-        turno = 2;
+        turno = 2; 
     } else {
         moneda2 = codigoMoneda;
         document.getElementById("select_pais2").value = codigoMoneda;
         alert("Destino seleccionado: " + codigoMoneda + ". Ahora puedes calcular.");
-        turno = 1;
+        turno = 1; 
     }
 }
 
 function cambiarDesdeSelect(numeroSelect) {
     if(numeroSelect == 1) {
         moneda1 = document.getElementById("select_pais1").value;
-        turno = 2; 
+        turno = 2;
         alert("Origen cambiado a: " + moneda1);
     } else {
         moneda2 = document.getElementById("select_pais2").value;
-        turno = 1;
+        turno = 1; 
         alert("Destino cambiado a: " + moneda2);
     }
 }
@@ -46,36 +45,21 @@ function formatearMoneda(input) {
 
     input.value = "$ " + formateado;
 }
+
 async function calcular() {
     var inputCantidad = document.getElementById("cantidad").value;
-
-
-    var cantidadLimpia = inputCantidad.replace(/\D/g, ""); 
     
-    if (cantidadLimpia == "") {
-        alert("Pon una cantidad valida por favor.");
-        return;
-    }
+    var cantidadNumerica = inputCantidad.replace(/\D/g, ""); 
 
     if (moneda1 == "" || moneda2 == "") {
         alert("¡Oye! Te falta seleccionar los países en el mapa o la lista.");
         return;
     }
-
-    try {
-        var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
-        var datos = await respuesta.json();
-        var tasa = datos.rates[moneda2];
-        
-        var total = cantidadLimpia * tasa;
-        
-        console.log("Total calculado: " + total);
-
-    } catch (error) {
-        console.log(error);
-        alert("Error: No pude conectar con la API de dinero.");
+    
+    if (cantidadNumerica == "") {
+        alert("Pon una cantidad valida por favor.");
+        return;
     }
-}
 
     try {
         var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
@@ -84,40 +68,24 @@ async function calcular() {
         
         var total = cantidadNumerica * tasa;
 
-        document.getElementById("resultado_final").innerText = "Total: " + total;
+        var totalBonito = new Intl.NumberFormat('en-US', { 
+            style: 'currency', 
+            currency: moneda2 
+        }).format(total);
 
-        var descripcion = "Intentando cambiar " + inputCantidad + " " + moneda1 + " a " + moneda2;
-        guardarEnHistorial(descripcion);
+        document.getElementById("resultado_final").innerText = "Total: " + totalBonito;
 
-    } catch (error) {
-        console.log(error);
-        alert("Error de conexión con la API de tasas.");
-    }
-}
-
-async function guardarEnHistorial(texto) {
-    console.log("Datos a guardar: " + texto);
-}
-async function calcular() {
-    var inputCantidad = document.getElementById("cantidad").value;
-
-    if (moneda1 == "" || moneda2 == "") {
-        alert("¡Oye! Te falta seleccionar los países en el mapa o la lista.");
-        return;
-    }
-
-    try {
-        var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
-        var datos = await respuesta.json();
-        
-        var tasa = datos.rates[moneda2];
-        
-        alert("Conectado! La tasa es: " + tasa); 
+        var textoHistorial = inputCantidad + " " + moneda1 + " son " + totalBonito;
+        guardarEnHistorial(textoHistorial);
 
     } catch (error) {
         console.log(error);
         alert("Error: No pude conectar con la API de dinero.");
     }
+}
+
+async function guardarEnHistorial(texto) {
+    console.log("Aun no guardo en base de datos, pero esto llegara: " + texto);
 }
 
 
