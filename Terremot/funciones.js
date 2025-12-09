@@ -48,18 +48,34 @@ function formatearMoneda(input) {
 }
 async function calcular() {
     var inputCantidad = document.getElementById("cantidad").value;
+
+
+    var cantidadLimpia = inputCantidad.replace(/\D/g, ""); 
     
-    var cantidadNumerica = inputCantidad.replace(/\D/g, "");
+    if (cantidadLimpia == "") {
+        alert("Pon una cantidad valida por favor.");
+        return;
+    }
 
     if (moneda1 == "" || moneda2 == "") {
-        alert("Falta elegir los países.");
+        alert("¡Oye! Te falta seleccionar los países en el mapa o la lista.");
         return;
     }
-    
-    if (cantidadNumerica == "") {
-        alert("Pon una cantidad valida.");
-        return;
+
+    try {
+        var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
+        var datos = await respuesta.json();
+        var tasa = datos.rates[moneda2];
+        
+        var total = cantidadLimpia * tasa;
+        
+        console.log("Total calculado: " + total);
+
+    } catch (error) {
+        console.log(error);
+        alert("Error: No pude conectar con la API de dinero.");
     }
+}
 
     try {
         var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
@@ -103,4 +119,5 @@ async function calcular() {
         alert("Error: No pude conectar con la API de dinero.");
     }
 }
+
 
