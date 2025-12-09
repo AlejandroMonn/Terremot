@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Convertidor Mundial 3000</title>
+    <title>Historial de Cambios</title>
     <link rel="stylesheet" href="estilos.css">
-    </head>
-<body>
-    <center>
-        <h1>🌍 El Convertidor del Mundo 🌍</h1>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body onload="cargarHistorial()"> <center>
+        <h1>📜 El Muro de la Fama 📜</h1>
+        <h3>(Últimas conversiones realizadas)</h3>
+        
+        <div class="historial-contenedor">
+            <ul id="lista-historial">
+                <li>Cargando datos de la nube... ☁️</li>
+            </ul>
+        </div>
+
+        <br><br>
+        <a href="index.html">
+            <button class="btn-grande" style="width: 200px; background-color: #e67e22;">⬅ Volver al Mapa</button>
+        </a>
     </center>
-    
+
     <script src="funciones.js"></script>
 </body>
 </html>
