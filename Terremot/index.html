@@ -6,7 +6,7 @@
     </head>
 <body>
     <center>
-        <h1>🌍The world converter 🌍</h1>
+        <h1>🌍The world currencies converter 🌍</h1>
     </center>
 
     <div class="contenedor-principal">
@@ -14,7 +14,7 @@
         <div class="calculadora">
             <h3>💸 Fast calculator</h3>
             
-            <label>Origen:</label>
+            <label>origin:</label>
             <select id="select_pais1" onchange="cambiarDesdeSelect(1)">
                 <option value="">-- search a contry --</option>
                 <option value="USD">🇺🇸 USA  (USD)</option>
@@ -26,22 +26,22 @@
             </select>
             <br><br>
             
-            <label>Destino:</label>
+            <label>Destiny:</label>
             <select id="select_pais2" onchange="cambiarDesdeSelect(2)">
-                <option value="">-- Busca un país --</option>
-                <option value="USD">🇺🇸 Estados Unidos (USD)</option>
+                 <option value="">-- search a contry --</option>
+                <option value="USD">🇺🇸 USA  (USD)</option>
                 <option value="COP">🇨🇴 Colombia (COP)</option>
                 <option value="MXN">🇲🇽 México (MXN)</option>
-                <option value="EUR">🇪🇸 España (EUR)</option>
-                <option value="GBP">🇬🇧 Reino Unido (GBP)</option>
-                <option value="JPY">🇯🇵 Japón (JPY)</option>
+                <option value="EUR">🇪🇸 Spain (EUR)</option>
+                <option value="GBP">🇬🇧 United Kingdom (GBP)</option>
+                <option value="JPY">🇯🇵 Japan (JPY)</option>
             </select>
             <br><br>
 
-            <label>Cantidad a Convertir:</label>
+            <label>Amount to convert</label>
             <input type="text" id="cantidad" placeholder="$ 0" onkeyup="formatearMoneda(this)"><br><br>
 
-            <button class="btn-grande" onclick="calcular()">🔄 CONVERTIR</button>
+            <button class="btn-grande" onclick="calcular()">🔄 Convert</button>
             
             <div class="resultado-caja">
                 <h2 id="resultado_final">Total: $ 0.00</h2>
@@ -51,19 +51,19 @@
         <div class="mapa-contenedor">
             <img src="mapa.jpg" alt="Mapa Mundi" class="imagen-mapa">
             
-            <button class="pais-btn" id="btn-usa" onclick="seleccionarPais('USD', '🇺🇸 Estados Unidos (USD)')">🇺🇸</button>
+            <button class="pais-btn" id="btn-usa" onclick="seleccionarPais('USD', '🇺🇸 United States (USD)')">🇺🇸</button>
             <button class="pais-btn" id="btn-col" onclick="seleccionarPais('COP', '🇨🇴 Colombia (COP)')">🇨🇴</button>
             <button class="pais-btn" id="btn-mex" onclick="seleccionarPais('MXN', '🇲🇽 México (MXN)')">🇲🇽</button>
-            <button class="pais-btn" id="btn-esp" onclick="seleccionarPais('EUR', '🇪🇸 España (EUR)')">🇪🇸</button>
-            <button class="pais-btn" id="btn-uk" onclick="seleccionarPais('GBP', '🇬🇧 Reino Unido (GBP)')">🇬🇧</button>
-            <button class="pais-btn" id="btn-jpn" onclick="seleccionarPais('JPY', '🇯🇵 Japón (JPY)')">🇯🇵</button>
+            <button class="pais-btn" id="btn-esp" onclick="seleccionarPais('EUR', '🇪🇸 Spain (EUR)')">🇪🇸</button>
+            <button class="pais-btn" id="btn-uk" onclick="seleccionarPais('GBP', '🇬🇧 United Kingdom (GBP)')">🇬🇧</button>
+            <button class="pais-btn" id="btn-jpn" onclick="seleccionarPais('JPY', '🇯🇵 japan (JPY)')">🇯🇵</button>
         </div>
 
     </div>
 
     <center>
         <br>
-        <a href="historial.html" class="link-historial">Ver Historial de Conversiones de dinero de otros paises</a>
+        <a href="historial.html" class="link-historial">See historials of convertions beetwen other currencies</a>
     </center>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
