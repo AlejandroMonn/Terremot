@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historial de Cambios</title>
+    <title>History</title>
     <link rel="stylesheet" href="estilos.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body onload="cargarHistorial()"> <center>
-        <h1>📜 El Muro de la Fama 📜</h1>
-        <h3>(Últimas conversiones realizadas)</h3>
-        
-        <div class="historial-contenedor">
-            <ul id="lista-historial">
-                <li>Cargando datos de la nube... ☁️</li>
-            </ul>
+<body onload="cargarHistorial()">
+    <center>
+        <h1>📜 Last convertions 📜</h1>
+        <div id="lista-historial" style="background: white; width: 80%; padding: 20px; text-align: left;">
+            loading...
         </div>
-
-        <br><br>
-        <a href="index.html">
-            <button class="btn-grande" style="width: 200px; background-color: #e67e22;">⬅ Volver al Mapa</button>
-        </a>
+        <br>
+        <button class="btn-grande" style="width: 200px;" onclick="window.location.href='index.html'">Volver al Mapa</button>
     </center>
 
-    <script src="funciones.js"></script>
+    <script>
+        
+        var supabaseUrl = '';
+        var supabaseKey = '';
+        var _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function cargarHistorial() {
+            const { data, error } = await _supabase
+                .from('historial_monedas')
+                .select('*')
+                .order('id', { ascending: false })
+                .limit(10);
+
+            if (error) {
+                document.getElementById("lista-historial").innerText = "Error loading.";
+            } else {
+                var html = "<ul>";
+                data.forEach(function(item) {
+                    html += "<li>" + item.descripcion + "</li>";
+                });
+                html += "</ul>";
+                document.getElementById("lista-historial").innerHTML = html;
+            }
+        }
+        <br><br><br>
+    
+    <div class="footer">
+        <p><b>Terremot</b></p>
+        <p>made 100% by a human called: <b>[Alejandro montoya]</b></p>
+        <p>Versión 1.0</p>
+        <p style="font-size: 10px;">powered by Supabase and ExchangeRate-API</p>
+    </div>
+    </script>
 </body>
 </html>
