@@ -1,98 +1,133 @@
-var turno = 1;
-var moneda1 = "";
-var moneda2 = "";
+// Global variables (bad practice but very novice style)
+var turn = 1; // 1 = selecting origin, 2 = selecting destination
+var currency1 = "";
+var currency2 = "";
 
-var supabaseUrl = ''; 
-var supabaseKey = ''; 
+// Supabase Config (Paste your keys here)
+var supabaseUrl = 'YOUR_URL_HERE'; 
+var supabaseKey = 'YOUR_KEY_HERE'; 
 var _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-function seleccionarPais(codigoMoneda, nombrePaisCompleto) {
-    if (turno == 1) {
-        moneda1 = codigoMoneda;
-        document.getElementById("select_pais1").value = codigoMoneda;
+// --- 1. SELECTION LOGIC (Map and Selects connected) ---
+
+// This function is called from the map buttons
+function selectCountry(currencyCode, countryNameFull) {
+    if (turn == 1) {
+        currency1 = currencyCode;
+        document.getElementById("select_pais1").value = currencyCode;
         
-        alert("Origin selected " + codigoMoneda + ". Now choose a destiny");
-        turno = 2; 
+        alert("Origin selected: " + currencyCode + ". Now choose destination.");
+        turn = 2; // Pass turn
     } else {
-        moneda2 = codigoMoneda;
-        document.getElementById("select_pais2").value = codigoMoneda;
-        alert("Destino seleccionado: " + codigoMoneda + ". Ahora puedes calcular.");
-        turno = 1; 
+        currency2 = currencyCode;
+        document.getElementById("select_pais2").value = currencyCode;
+        alert("Destination selected: " + currencyCode + ". Now you can calculate.");
+        turn = 1; // Reset cycle
     }
 }
 
-function cambiarDesdeSelect(numeroSelect) {
-    if(numeroSelect == 1) {
-        moneda1 = document.getElementById("select_pais1").value;
-        turno = 2;
-        alert("Origen cambiado a: " + moneda1);
+// This function is called from the dropdowns (select)
+function changeFromSelect(selectNumber) {
+    if(selectNumber == 1) {
+        currency1 = document.getElementById("select_pais1").value;
+        turn = 2; // Pass turn
+        alert("Origin changed to: " + currency1);
     } else {
-        moneda2 = document.getElementById("select_pais2").value;
-        turno = 1; 
-        alert("Destino cambiado a: " + moneda2);
+        currency2 = document.getElementById("select_pais2").value;
+        turn = 1; // Reset cycle
+        alert("Destination changed to: " + currency2);
     }
 }
 
-function formatearMoneda(input) {
-    var valorLimpio = input.value.replace(/\D/g, "");
+// --- 2. FORMATTING LOGIC (Thousands and Signs) ---
+function formatCurrencyInput(input) {
+    // 1. Remove anything that is not a digit (letters, symbols, old commas)
+    var cleanValue = input.value.replace(/\D/g, "");
     
-    if (valorLimpio === "") {
+    if (cleanValue === "") {
         input.value = "";
         return;
     }
 
-    var formateado = new Intl.NumberFormat('en-US').format(valorLimpio);
+    // 2. Convert to number and use Intl to format with commas
+    // We use 'en-US' for thousand separation
+    var formattedValue = new Intl.NumberFormat('en-US').format(cleanValue);
 
-    input.value = "$ " + formateado;
+    // 3. Put the $ sign at the beginning (novice uses $ as generic symbol)
+    input.value = "$ " + formattedValue;
 }
 
-async function calcular() {
-    var inputCantidad = document.getElementById("cantidad").value;
+// --- 3. CALCULATION AND RESULT ---
+async function calculate() {
+    var inputAmount = document.getElementById("cantidad").value;
     
-    var cantidadNumerica = inputCantidad.replace(/\D/g, ""); 
+    // 1. Clean the input for math (remove $ and ,) 
+    var numericAmount = inputAmount.replace(/\D/g, ""); 
 
-    if (moneda1 == "" || moneda2 == "") {
-        alert("¡Oye! Te falta seleccionar los países en el mapa o la lista.");
+    // Validations
+    if (currency1 == "" || currency2 == "") {
+        alert("Hey! You need to select the countries on the map or the list.");
         return;
     }
     
-    if (cantidadNumerica == "") {
-        alert("Pon una cantidad valida por favor.");
+    if (numericAmount == "") {
+        alert("Please enter a valid amount.");
         return;
     }
 
     try {
-        var respuesta = await fetch("https://api.exchangerate-api.com/v4/latest/" + moneda1);
-        var datos = await respuesta.json();
-        var tasa = datos.rates[moneda2];
+        // 2. API Connection
+        var response = await fetch("https://api.exchangerate-api.com/v4/latest/" + currency1);
+        var data = await response.json();
+        var rate = data.rates[currency2];
         
-        var total = cantidadNumerica * tasa;
+        // 3. Math calculation
+        var total = numericAmount * rate;
 
-        var totalBonito = new Intl.NumberFormat('en-US', { 
+        // 4. Format the result beautifully
+        var formattedTotal = new Intl.NumberFormat('en-US', { 
             style: 'currency', 
-            currency: moneda2 
+            currency: currency2 
         }).format(total);
 
-        document.getElementById("resultado_final").innerText = "Total: " + totalBonito;
-        "💰 Resultado: <br>" + totalBonito + " (" + moneda2 + ")";
+        // 5. Display on screen (Commit 13 adds emoji)
+        document.getElementById("resultado_final").innerHTML = 
+            "💰 Result: <br>" + formattedTotal + " (" + currency2 + ")";
 
-
-        var textoHistorial = inputCantidad + " " + moneda1 + " son " + totalBonito;
-        guardarEnHistorial(textoHistorial);
+        // 6. Prepare history text
+        var historyText = "Conversion of " + inputAmount + " " + currency1 + " to " + formattedTotal + " " + currency2;
+        saveToHistory(historyText);
 
     } catch (error) {
         console.log(error);
-        alert("Error: No pude conectar con la API de dinero.");
+        alert("Error: Could not connect to the currency API.");
     }
 }
 
-async function guardarEnHistorial(texto) {
-    console.log("Aun no guardo en base de datos, pero esto llegara: " + texto);
+// --- 4. SUPABASE WRITE LOGIC (Commit 14) ---
+async function saveToHistory(text) {
+    console.log("Attempting to save to Supabase...");
+
+    // Insert into 'historial_monedas' table
+    const { error } = await _supabase
+        .from('historial_monedas')
+        .insert([{ descripcion: text }]); // Column name 'descripcion' as defined in database
+
+    if (error) {
+        console.log("Error saving: " + error.message);
+    } else {
+        console.log("Save successful!");
+    }
 }
-async function cargarHistorial() {
-    var lista = document.getElementById("lista-historial");
-    if (!lista) return; 
+
+// --- 5. SUPABASE READ LOGIC (Commit 16) ---
+async function loadHistory() {
+    // Check if we are on the correct page by looking for the element
+    var list = document.getElementById("lista-historial");
+    if (!list) return; 
+
     try {
+        // Fetch last 10 records, ordered by ID descending
         const { data, error } = await _supabase
             .from('historial_monedas')
             .select('*')
@@ -100,24 +135,26 @@ async function cargarHistorial() {
             .limit(10);
 
         if (error) {
-            lista.innerHTML = "<li>Error cargando la lista :(</li>";
+            list.innerHTML = "<li>Error loading the list :(</li>";
             console.log(error);
         } else {
-            lista.innerHTML = "";
+            // Clear the "Loading..." message
+            list.innerHTML = "";
 
             data.forEach(function(item) {
-                var fila = document.createElement("li");
-                fila.className = "item-historial";
-                fila.innerText = item.descripcion; 
+                var row = document.createElement("li");
+                row.className = "item-historial";
+                row.innerText = item.descripcion; 
                 
-                lista.appendChild(fila);
+                list.appendChild(row);
             });
         }
     } catch (err) {
         console.log(err);
-        lista.innerHTML = "<li>Error de conexión.</li>";
+        list.innerHTML = "<li>Connection Error.</li>";
     }
 }
+
 
 
 
